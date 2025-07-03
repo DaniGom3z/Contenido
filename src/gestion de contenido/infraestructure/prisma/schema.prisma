@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Autor {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @db.VarChar(255)
+  biografia String?
+
+  libros    Libro[]
+}
+
+model Libro {
+  id          Int       @id @default(autoincrement())
+  idAutor     Int
+  titulo      String    @db.VarChar(255)
+  categoria   String   @db.VarChar(255)
+  numPaginas  Int
+  sinopsis    String   @db.Text
+  url         String   @db.VarChar(255) 
+  urlPortada         String   @db.VarChar(255) 
+
+  autor       Autor     @relation(fields: [idAutor], references: [id])
+  generos     LibroGenero[]
+
+  reportes    ReporteLibro[]
+}
+
+model Genero {
+  id      Int           @id @default(autoincrement())
+  nombre  String        @db.VarChar(100) @unique
+  libros  LibroGenero[]
+}
+
+model LibroGenero {
+  idLibro  Int
+  idGenero Int
+
+  libro    Libro   @relation(fields: [idLibro], references: [id])
+  genero   Genero  @relation(fields: [idGenero], references: [id])
+
+  @@id([idLibro, idGenero])
+}
+
+model ReporteLibro {
+  id          Int      @id @default(autoincrement())
+  idLibro     Int
+  descripcion String   @db.Text
+  creadoEn    DateTime @default(now())
+
+  libro       Libro    @relation(fields: [idLibro], references: [id])
+}
