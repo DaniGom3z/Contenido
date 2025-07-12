@@ -11,13 +11,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CrearAutor = void 0;
 const Autor_1 = require("../../domain/entities/Autor");
+const NombreAutor_1 = require("../../domain/value-objects/NombreAutor");
 class CrearAutor {
     constructor(autorRepo) {
         this.autorRepo = autorRepo;
     }
     execute(nombre, biografia) {
         return __awaiter(this, void 0, void 0, function* () {
-            const autor = new Autor_1.Autor(undefined, nombre, biografia);
+            const autor = new Autor_1.Autor(undefined, new NombreAutor_1.NombreAutor(nombre), biografia);
             return yield this.autorRepo.crear(autor);
         });
     }

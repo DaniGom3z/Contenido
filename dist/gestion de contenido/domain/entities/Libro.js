@@ -11,18 +11,6 @@ class Libro {
         this.url = url;
         this.urlPortada = urlPortada;
         this.id = id;
-        if (!titulo || titulo.trim().length < 3) {
-            throw new Error('El título del libro debe tener al menos 3 caracteres');
-        }
-        if (!categoria) {
-            throw new Error('La categoría es obligatoria');
-        }
-        if (numPaginas <= 0) {
-            throw new Error('El número de páginas debe ser mayor a 0');
-        }
-        if (!url) {
-            throw new Error('La URL del contenido es requerida');
-        }
     }
 }
 exports.Libro = Libro;

@@ -1,28 +1,32 @@
 import { Libro } from "../../domain/entities/Libro";
 import { LibroRepository } from "../../domain/repositories/LibroRepository";
 import prisma from "../prisma/client";
+import { TituloLibro } from '../../domain/value-objects/TituloLibro';
+import { Categoria } from '../../domain/value-objects/Categoria';
+import { NumeroPaginas } from '../../domain/value-objects/NumeroPaginas';
+import { UrlLibro } from '../../domain/value-objects/UrlLibro';
 
 export class LibroPrismaRepository implements LibroRepository {
   async crear(libro: Libro): Promise<Libro> {
     const creado = await prisma.libro.create({
       data: {
         idAutor: libro.idAutor,
-        titulo: libro.titulo,
-        categoria: libro.categoria,
-        numPaginas: libro.numPaginas,
+        titulo: libro.titulo.value,
+        categoria: libro.categoria.value,
+        numPaginas: libro.numPaginas.value,
         sinopsis: libro.sinopsis,
-        url: libro.url,
+        url: libro.url.value,
         urlPortada: libro.urlPortada,
       },
     });
 
     return new Libro(
       creado.idAutor,
-      creado.titulo,
-      creado.categoria,
-      creado.numPaginas,
+      new TituloLibro(creado.titulo),
+      new Categoria(creado.categoria),
+      new NumeroPaginas(creado.numPaginas),
       creado.sinopsis,
-      creado.url,
+      new UrlLibro(creado.url),
       creado.urlPortada,
       creado.id
     );
@@ -37,11 +41,11 @@ export class LibroPrismaRepository implements LibroRepository {
 
     return new Libro(
       libro.idAutor,
-      libro.titulo,
-      libro.categoria,
-      libro.numPaginas,
+      new TituloLibro(libro.titulo),
+      new Categoria(libro.categoria),
+      new NumeroPaginas(libro.numPaginas),
       libro.sinopsis,
-      libro.url,
+      new UrlLibro(libro.url),
       libro.urlPortada,
       libro.id
     );
@@ -53,11 +57,11 @@ export class LibroPrismaRepository implements LibroRepository {
       (l) =>
         new Libro(
           l.idAutor,
-          l.titulo,
-          l.categoria,
-          l.numPaginas,
+          new TituloLibro(l.titulo),
+          new Categoria(l.categoria),
+          new NumeroPaginas(l.numPaginas),
           l.sinopsis,
-          l.url,
+          new UrlLibro(l.url),
           l.urlPortada,
           l.id
         )
@@ -73,11 +77,11 @@ export class LibroPrismaRepository implements LibroRepository {
       (l) =>
         new Libro(
           l.idAutor,
-          l.titulo,
-          l.categoria,
-          l.numPaginas,
+          new TituloLibro(l.titulo),
+          new Categoria(l.categoria),
+          new NumeroPaginas(l.numPaginas),
           l.sinopsis,
-          l.url,
+          new UrlLibro(l.url),
           l.urlPortada,
           l.id
         )
@@ -104,11 +108,11 @@ export class LibroPrismaRepository implements LibroRepository {
       (l) =>
         new Libro(
           l.idAutor,
-          l.titulo,
-          l.categoria,
-          l.numPaginas,
+          new TituloLibro(l.titulo),
+          new Categoria(l.categoria),
+          new NumeroPaginas(l.numPaginas),
           l.sinopsis,
-          l.url,
+          new UrlLibro(l.url),
           l.urlPortada,
           l.id
         )

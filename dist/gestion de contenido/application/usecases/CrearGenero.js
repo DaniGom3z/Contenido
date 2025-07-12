@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CrearGenero = void 0;
 const Genero_1 = require("../../domain/entities/Genero");
+const NombreGenero_1 = require("../../domain/value-objects/NombreGenero");
 class CrearGenero {
     constructor(generoRepo) {
         this.generoRepo = generoRepo;
@@ -20,7 +21,7 @@ class CrearGenero {
             const existente = yield this.generoRepo.buscarPorNombre(nombre);
             if (existente)
                 throw new Error('Ya existe un género con ese nombre');
-            const genero = new Genero_1.Genero(undefined, nombre);
+            const genero = new Genero_1.Genero(undefined, new NombreGenero_1.NombreGenero(nombre));
             return yield this.generoRepo.crear(genero);
         });
     }

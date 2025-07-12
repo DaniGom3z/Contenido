@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const express_1 = __importDefault(require("express"));
-const routesGestion_1 = __importDefault(require("./gestion de contenido/infraestructure/adapters/routes/routesGestion"));
+const routesGestion_1 = __importDefault(require("./gestion de contenido/infrastructure/adapters/routes/routesGestion"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());

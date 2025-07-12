@@ -28,7 +28,6 @@ model Libro {
   autor       Autor     @relation(fields: [idAutor], references: [id])
   generos     LibroGenero[]
 
-  reportes    ReporteLibro[]
 }
 
 model Genero {
@@ -47,11 +46,3 @@ model LibroGenero {
   @@id([idLibro, idGenero])
 }
 
-model ReporteLibro {
-  id          Int      @id @default(autoincrement())
-  idLibro     Int
-  descripcion String   @db.Text
-  creadoEn    DateTime @default(now())
-
-  libro       Libro    @relation(fields: [idLibro], references: [id])
-}
